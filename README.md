@@ -14,6 +14,7 @@ For alpine linux:
 FROM alpine
 
 ADD https://github.com/jungsoft/docker-healthcheck/releases/download/0.0.1/healthcheck-alpine /usr/local/bin/healthcheck
+RUN chmod +x /usr/local/bin/healthcheck
 
 HEALTHCHECK CMD healthcheck
 ```
