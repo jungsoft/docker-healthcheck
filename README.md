@@ -8,12 +8,14 @@ This repository also contains a binary file built for Alpine.
 
 Include the binary in your image, either by COPYing from disk or ADDing directly from this repo, then use it as HEALTHCHECK:
 
+For alpine linux:
+
 ```Dockerfile
 FROM alpine
 
-...
+ADD https://github.com/jungsoft/docker-healthcheck/releases/download/0.0.1/healthcheck-alpine /usr/local/bin/healthcheck
 
-HEALTHCHECK CMD /path/to/healthcheck
+HEALTHCHECK CMD healthcheck
 ```
 
 ## Building
