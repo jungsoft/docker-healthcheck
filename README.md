@@ -19,6 +19,17 @@ RUN chmod +x /usr/local/bin/healthcheck
 HEALTHCHECK CMD healthcheck
 ```
 
+Or if you prefer COPYing:
+
+```Dockerfile
+FROM alpine
+
+# Assuming local file already has permission to execute
+COPY local/path/to/healthcheck /usr/local/bin/healthcheck
+
+HEALTHCHECK CMD healthcheck
+```
+
 ## Building
 
 To build it for alpine, you can use the go-alpine image, for example:
