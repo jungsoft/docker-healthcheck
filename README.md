@@ -44,7 +44,7 @@ HEALTHCHECK CMD healthcheck
 To build it for alpine, you can use the go-alpine image, for example (alternatively, for ARM64, you can use `docker run --rm -it arm64v8/golang:1.17-alpine`):
 
 ```bash
-docker run --rm -it golang:1.17-alpine
+docker run --rm -it --platform linux/amd64 amd64/golang:1.17-alpine
 ```
 
 Then copy the go file to the running container:
