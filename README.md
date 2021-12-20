@@ -2,21 +2,30 @@
 
 A simple binary that can be used as healthcheck in docker containers.
 
-This repository also contains a binary file built for Alpine.
+This repository also contains binary files built for Alpine AMD64 and ARM64.
 
 ## Usage
 
 Include the binary in your image, either by COPYing from disk or ADDing directly from this repo, then use it as HEALTHCHECK:
 
-For alpine linux:
+For alpine linux AMD64:
 
 ```Dockerfile
 FROM alpine
 
-ADD https://github.com/jungsoft/docker-healthcheck/releases/download/0.0.1/healthcheck-alpine /usr/local/bin/healthcheck
+ADD https://github.com/jungsoft/docker-healthcheck/releases/download/0.1.0/healthcheck_alpine_amd64 /usr/local/bin/healthcheck
 RUN chmod +x /usr/local/bin/healthcheck
 
 HEALTHCHECK CMD healthcheck
+```
+
+If doing a multiplatform build, you can also do:
+```Dockerfile
+FROM alpine
+ARG TARGETARCH
+
+ADD hhttps://github.com/jungsoft/docker-healthcheck/releases/download/0.1.0/healthcheck_alpine_$TARGETARCH /usr/local/bin/healthcheck
+RUN chmod +x /usr/local/bin/healthcheck
 ```
 
 Or if you prefer COPYing:
@@ -32,10 +41,10 @@ HEALTHCHECK CMD healthcheck
 
 ## Building
 
-To build it for alpine, you can use the go-alpine image, for example:
+To build it for alpine, you can use the go-alpine image, for example (alternatively, for ARM64, you can use `docker run --rm -it arm64v8/golang:1.17-alpine`):
 
 ```bash
-docker run --rm -it golang:1.14.3-alpine
+docker run --rm -it golang:1.17-alpine
 ```
 
 Then copy the go file to the running container:
