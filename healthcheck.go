@@ -7,13 +7,18 @@ import (
 )
 
 func main() {
-	port := os.Getenv("PORT")
+	url_env := os.Getenv("URL")
+	port_env := os.Getenv("PORT")
 	var url string
 
-	if port != "" {
-		url = "http://localhost:" + port
+	if url_env != "" {
+		url = url_env
 	} else {
-		url = "http://localhost"
+		if port_env != "" {
+			url = "http://localhost:" + port_env
+		} else {
+			url = "http://localhost"
+		}
 	}
 
 	_, err := http.Get(url)
