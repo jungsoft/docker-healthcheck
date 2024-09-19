@@ -41,26 +41,18 @@ HEALTHCHECK CMD healthcheck
 
 ## Building
 
-To build it for alpine, you can use the go-alpine image, for example (alternatively, for ARM64, you can use `docker run --rm -it arm64v8/golang:1.17-alpine`):
-
-```bash
-docker run --rm -it --platform linux/amd64 amd64/golang:1.17-alpine
-```
-
-Then copy the go file to the running container:
-
-```bash
-docker cp healthcheck.go CONTAINER_NAME:/go/healthcheck.go
-```
-
-Build it from the container
+To build it for alpine, you can use the go-alpine image, for example (alternatively, for ARM64, you can use `docker run --rm -it arm64v8/golang:1.17-alpine`) or directly from the command line with go installed:
 
 ```bash
 go build healthcheck.go
 ```
 
-And copy back the binary to the host
+The binary will be created inside the current directory with name `healthcheck`
+
+Or alternatively for other operational systems or architectures, use respectively the envs `GOOS` and `GOARCH` (for better portability, make sure to use static linking with `CGO_ENABLED=0`):
 
 ```bash
-docker cp CONTAINER_NAME:/go/healthcheck healthcheck
+CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o healthcheck_linux_amd64 healthcheck.go
+
+CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o healthcheck_linux_arm64 healthcheck.go
 ```
